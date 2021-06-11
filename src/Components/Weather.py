@@ -13,3 +13,6 @@ class Weather:
     def on_update(self, step):
         # if self.conditions.name == "SUNNY":
         print(self.conditions.name)
+
+    def on_display(self, screen):
+        pass

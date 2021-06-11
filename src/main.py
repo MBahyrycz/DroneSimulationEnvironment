@@ -12,7 +12,7 @@ from App.Scenario import *
 
 if __name__ == "__main__":
 
-    step = 1/1
+    step_time = 1/1
 
     properties = {'name':'Skulim environment'} 
     env=Environment(properties)
@@ -37,9 +37,9 @@ if __name__ == "__main__":
     weather_scenario = Scenario("Rain")
 
     simulation = env.create_simulation('symulacja')
+    simulation.add_layer(map_layer)
     simulation.add_layer(drone_layer)
     simulation.add_layer(station_layer)
     simulation.add_layer(weather_layer)
-    simulation.add_layer(map_layer)
     simulation.add_scenario(weather_scenario)
-    simulation.run(step, 10, "Rain")
+    simulation.run(step_time, 10, "Rain")
