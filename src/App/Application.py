@@ -1,5 +1,10 @@
-import PySimpleGUI as sg
+import sys
 import numpy as np
+
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QPushButton
 
 from Components.Drone import *
 from Components.DockingStation import *
@@ -13,15 +18,34 @@ from App.Environment.Scenario import *
 
 class Application:
     def __init__(self):
-        layout = [[sg.Text("Press RUN button to run simulation")], [sg.Button("RUN")]]
-        self.window = sg.Window("Drone Environment", layout, size=(800, 640))
-        self.is_running = True
+        self.app = app = QApplication(sys.argv)
         self.environment=Environment({'name':'Skulim environment'})
 
-    def create_simulation(self):
+        self.window = QWidget()
+        self.window.setWindowTitle('Drone simulation envinronment')
+        self.window.setGeometry(100, 100, 800, 640)
+        self.window.move(60, 15)
+        
+        self.label = QLabel('<h1>Press RUN to run simulation</h1>', parent=self.window)
+        self.label.move(60, 15)
+
+        self.run_button = QPushButton(parent=self.window)
+        self.run_button.setText("RUN")
+        self.run_button.move(100, 100)
+        self.run_button.clicked.connect(self.on_run_button_clicked)
+
+        self.run()
+
+    def run(self):
+        self.window.show()
+
+        sys.exit(self.app.exec_())
+
+
+    def reset_simulation(self):
         self.step_time = 1/1
 
-        drone1 = Drone(np.array([100,40,0]), 10, 0, file_path="drone0.png")
+        drone1 = Drone(np.array([130,60,0]), 10, 0, file_path="drone0.png")
         drone2 = Drone(np.array([150,400,0]), 15, 1, file_path="drone1.png")
         drone3 = Drone(np.array([500,300,0]), 5, 2, file_path="drone2.png")
         drone4 = Drone(np.array([650,500,0]), 25, 3, file_path="drone0.png")
@@ -47,16 +71,6 @@ class Application:
         self.simulation.add_layer(self.weather_layer)
         self.simulation.add_scenario(self.weather_scenario)
 
-
-    def main_loop(self):
-        while self.is_running:
-            event, values = self.window.read()
-            # end program
-            if event == sg.WIN_CLOSED:
-                self.is_running = False
-            # run simulation
-            elif event == "RUN":
-                self.create_simulation()
-                self.simulation.run(self.step_time, 10, "Rain")
-
-        self.window.close()
+    def on_run_button_clicked(self):
+        self.reset_simulation()
+        self.simulation.run(self.step_time, 10)
