@@ -21,7 +21,7 @@ class Drone:
 
     def on_display(self, surface):
         surface.blit(self.texture, (self.position[0]-self.width, self.position[1] - self.height, self.width, self.height))
-        pygame.draw.rect(surface, (255, 0, 0), (self.position[0]-self.width, self.position[1] - self.height, self.width, self.height), 2) # debug rect
+        # pygame.draw.rect(surface, (255, 0, 0), (self.position[0]-self.width, self.position[1] - self.height, self.width, self.height), 2) # debug rect
 
     def on_collide(self, step):
         pass

@@ -13,6 +13,7 @@ from Components.Map import *
 
 from Layers.Layer import *
 
+from App.GUI.MainWindow import MainWindow
 from App.Environment.Environment import *
 from App.Environment.Scenario import *
 
@@ -20,13 +21,13 @@ class Application:
     def __init__(self):
         self.app = app = QApplication(sys.argv)
         self.environment=Environment({'name':'Skulim environment'})
-
         self.window = QWidget()
         self.window.setWindowTitle('Drone simulation envinronment')
         self.window.setGeometry(100, 100, 800, 640)
         self.window.move(60, 15)
         
-        self.label = QLabel('<h1>Press RUN to run simulation</h1>', parent=self.window)
+        self.label = QLabel(parent=self.window)
+        self.label.setText('<h1>Press RUN to run simulation</h1>')
         self.label.move(60, 15)
 
         self.run_button = QPushButton(parent=self.window)
