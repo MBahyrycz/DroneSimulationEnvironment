@@ -14,28 +14,21 @@ from Components.Map import *
 
 from Layers.Layer import *
 
-from App.GUI.MainWindow import MainWindow
+
 from App.Environment.Environment import *
 from App.Environment.Scenario import *
+
+from App.GUI.main_window import *
 
 
 class Application:
     def __init__(self):
-        self.app = app = QApplication(sys.argv)
+        self.app = QApplication(sys.argv)
         self.environment = Environment({'name': 'Skulim environment'})
-        self.window = QWidget()
-        self.window.setWindowTitle('Drone simulation envinronment')
-        self.window.setGeometry(100, 100, 800, 640)
-        self.window.move(60, 15)
-
-        self.label = QLabel(parent=self.window)
-        self.label.setText('<h1>Press RUN to run simulation</h1>')
-        self.label.move(60, 15)
-
-        self.run_button = QPushButton(parent=self.window)
-        self.run_button.setText("RUN")
-        self.run_button.move(100, 100)
-        self.run_button.clicked.connect(self.on_run_button_clicked)
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self.window)
+        self.ui.play.clicked.connect(self.on_run_button_clicked)
 
         self.run()
 
