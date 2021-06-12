@@ -54,8 +54,8 @@ class Application:
         self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3]) 
         self.drone_layer.add_component(drone4)
 
-        station1 = DockingStation(np.array([110, 40, 10]), 0)
-        station2 = DockingStation(np.array([200, 200, 10]), 1)
+        station1 = DockingStation(np.array([240, 60, 10]), 4)
+        station2 = DockingStation(np.array([130, 200, 10]), 5)
         self.station_layer = Layer(Type.STATION, [station1, station2])
 
         map = Map(1000, 1000, "Libertow")
@@ -84,3 +84,4 @@ class Application:
         self.reset_simulation()
         self.simulation.run(self.step_time, 10)
         self.sum_up_simulation()
+        self.simulation.shutdown()

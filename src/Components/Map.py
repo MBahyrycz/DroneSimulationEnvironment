@@ -8,6 +8,7 @@ class Map:
         self.name = name
         self.file_path = file_path
         self.background = pygame.image.load(os.path.join(os.pardir, "assets", self.file_path))
+        self.is_collidable = False
 
     def on_update(self, step):
         print("Map: {0} width: {1}, height: {2}".format(self.name, self.width, self.height))
