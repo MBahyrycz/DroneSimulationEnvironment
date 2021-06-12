@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QMessageBox
 
 from Components.Drone import *
 from Components.DockingStation import *
@@ -53,8 +54,8 @@ class Application:
         self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3]) 
         self.drone_layer.add_component(drone4)
 
-        station1 = DockingStation(np.array([11, 13, 10]), 0)
-        station2 = DockingStation(np.array([-7, 31, 10]), 1)
+        station1 = DockingStation(np.array([110, 40, 10]), 0)
+        station2 = DockingStation(np.array([200, 200, 10]), 1)
         self.station_layer = Layer(Type.STATION, [station1, station2])
 
         map = Map(1000, 1000, "Libertow")
@@ -67,11 +68,19 @@ class Application:
 
         self.simulation = self.environment.create_simulation('symulacja')
         self.simulation.add_layer(self.map_layer)
-        self.simulation.add_layer(self.drone_layer)
         self.simulation.add_layer(self.station_layer)
+        self.simulation.add_layer(self.drone_layer)
         self.simulation.add_layer(self.weather_layer)
         self.simulation.add_scenario(self.weather_scenario)
+
+    def sum_up_simulation(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Simulation info")
+        msg.setText(self.simulation.sum_up())
+        msg.setIcon(QMessageBox.Information)
+        x = msg.exec_()
 
     def on_run_button_clicked(self):
         self.reset_simulation()
         self.simulation.run(self.step_time, 10)
+        self.sum_up_simulation()

@@ -30,11 +30,11 @@ class Simulation:
         self.surface = pygame.display.set_mode(self.window_size)
         pygame.display.set_caption("{0}".format(self.name))
 
-        start = 0
+        self.start = 0
         self.sim_start = perf_counter()
         print("Running {0} simulation ...".format(self.name))
-        while sim_time>start and self.is_running:
-            start = perf_counter() - self.sim_start
+        while sim_time>self.start and self.is_running:
+            self.start = perf_counter() - self.sim_start
 
             #handling pygame events
             for event in pygame.event.get():
@@ -58,14 +58,13 @@ class Simulation:
             pygame.display.update()
 
             stop = perf_counter() - self.sim_start
-            delta_time = stop-start
+            delta_time = stop-self.start
             if delta_time < step_time:
                 time.sleep(step_time-delta_time)
 
             self.steps_count += 1
 
-
-        print("Simulation {0} ended after {1} seconds ({2} steps)".format(self.name, start, self.steps_count ))
+        # print("Simulation {0} ended after {1} seconds ({2} steps)".format(self.name, self.start, self.steps_count ))
         time.sleep(1)
         pygame.quit()
 
@@ -74,3 +73,6 @@ class Simulation:
 
     def add_layer(self, layer):
         self.layers.append(layer)
+
+    def sum_up(self):
+        return "Simulation {0} ended after {1:.2f} seconds ({2} steps)".format(self.name, self.start, self.steps_count )
