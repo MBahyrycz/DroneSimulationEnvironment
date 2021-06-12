@@ -18,15 +18,16 @@ from App.GUI.MainWindow import MainWindow
 from App.Environment.Environment import *
 from App.Environment.Scenario import *
 
+
 class Application:
     def __init__(self):
         self.app = app = QApplication(sys.argv)
-        self.environment=Environment({'name':'Skulim environment'})
+        self.environment = Environment({'name': 'Skulim environment'})
         self.window = QWidget()
         self.window.setWindowTitle('Drone simulation envinronment')
         self.window.setGeometry(100, 100, 800, 640)
         self.window.move(60, 15)
-        
+
         self.label = QLabel(parent=self.window)
         self.label.setText('<h1>Press RUN to run simulation</h1>')
         self.label.move(60, 15)
@@ -43,15 +44,14 @@ class Application:
 
         sys.exit(self.app.exec_())
 
-
     def reset_simulation(self):
-        self.step_time = 1/1
+        self.step_time = 1 / 1
 
-        drone1 = Drone(np.array([130,60,0]), 10, 0, file_path="drone0.png")
-        drone2 = Drone(np.array([150,400,0]), 15, 1, file_path="drone1.png")
-        drone3 = Drone(np.array([500,300,0]), 5, 2, file_path="drone2.png")
-        drone4 = Drone(np.array([650,500,0]), 25, 3, file_path="drone0.png")
-        self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3]) 
+        drone1 = Drone(np.array([130, 60, 0]), 10, 0, file_path="drone0.png")
+        drone2 = Drone(np.array([150, 400, 0]), 15, 1, file_path="drone1.png")
+        drone3 = Drone(np.array([500, 300, 0]), 5, 2, file_path="drone2.png")
+        drone4 = Drone(np.array([650, 500, 0]), 25, 3, file_path="drone0.png")
+        self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3])
         self.drone_layer.add_component(drone4)
 
         station1 = DockingStation(np.array([110, 40, 10]), 0)
