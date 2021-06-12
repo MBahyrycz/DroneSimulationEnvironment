@@ -9,6 +9,7 @@ class Conditions(Enum):
 class Weather:
     def __init__(self, conditions):
         self.conditions = conditions
+        self.is_collidable = False
 
     def on_update(self, step):
         # if self.conditions.name == "SUNNY":

@@ -16,14 +16,18 @@ class Layer:
         self.height = height
         self.depth = depth
         self.components = components
+        self.is_visible = True
+        self.is_computed = True
 
     def on_update(self, step):
-        for c in self.components:
-            c.on_update(step)
+        if self.is_computed:
+            for c in self.components:
+                c.on_update(step)
 
     def on_display(self, surface):
-        for c in self.components:
-            c.on_display(surface)
+        if self.is_visible:
+            for c in self.components:
+                c.on_display(surface)
 
     def add_component(self, component):
         self.components.append(component)

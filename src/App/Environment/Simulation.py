@@ -1,3 +1,4 @@
+from App.Environment.CollisionDetector import CollisionDetector
 from time import perf_counter
 import time
 import sys
@@ -12,6 +13,8 @@ class Simulation:
         self.layers = layers
         self.scenarios = scenarios
         self.is_running = False
+        self.colision_detector = CollisionDetector()
+
         self.window_size = self.window_width, self.window_height = 800, 800
         print("Simulation {0} has been created!".format(self.name))     
 
@@ -22,6 +25,7 @@ class Simulation:
         self.steps_count = 0
         self.sim_start = 0
         delta_time=0
+        self.colision_detector.colliders.clear()
 
         # window creation and pygame initialisation
         pygame.init()
@@ -42,17 +46,25 @@ class Simulation:
 
             print("\n================STEP={0}===================".format(self.steps_count))
 
+            # collision detection
+            self.colision_detector.detect()
+
             if self.scenarios and scenario_name:
                 self.scenarios[scenario_name].execute(self.steps_count, self.layers)
 
+            # layers update
             for l in self.layers:
                 l.on_update(self.steps_count)
+
+            # collision detector update 
+            self.colision_detector.get_from_layers(self.layers)
 
             #displaying logic
             step_label = self.main_font.render("Step: {0}".format(self.steps_count), 1, (255, 255, 255))
             
             for l in self.layers:
                 l.on_display(self.surface)  
+            self.colision_detector.draw_boxes(self.surface)
             self.surface.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
 
             pygame.display.update()
@@ -73,6 +85,10 @@ class Simulation:
 
     def add_layer(self, layer):
         self.layers.append(layer)
+
+    def shutdown(self):
+        self.layers.clear()
+        self.colision_detector.shutdown()
 
     def sum_up(self):
         return "Simulation {0} ended after {1:.2f} seconds ({2} steps)".format(self.name, self.start, self.steps_count )
