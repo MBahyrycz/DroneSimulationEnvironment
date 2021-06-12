@@ -21,9 +21,9 @@ class Layer:
         for c in self.components:
             c.on_update(step)
 
-    def on_display(self, screen):
+    def on_display(self, surface):
         for c in self.components:
-            c.on_display(screen)
+            c.on_display(surface)
 
     def add_component(self, component):
         self.components.append(component)

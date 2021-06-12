@@ -14,5 +14,5 @@ class Weather:
         # if self.conditions.name == "SUNNY":
         print(self.conditions.name)
 
-    def on_display(self, screen):
+    def on_display(self, surface):
         pass

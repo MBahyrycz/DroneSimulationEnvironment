@@ -1,5 +1,5 @@
 
-from App.Simulation import *
+from App.Environment.Simulation import *
 
 class Environment:
     def __init__(self, properties):

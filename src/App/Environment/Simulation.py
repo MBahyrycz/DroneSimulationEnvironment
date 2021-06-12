@@ -12,7 +12,7 @@ class Simulation:
         self.layers = layers
         self.scenarios = scenarios
         self.is_running = False
-        self.window_size = self.window_width, self.window_height = 600, 600
+        self.window_size = self.window_width, self.window_height = 800, 800
         print("Simulation {0} has been created!".format(self.name))     
 
     def run(self, step_time, sim_time, scenario_name="", show=True):
@@ -20,25 +20,21 @@ class Simulation:
         self.is_running = True
         self.step_time = step_time
         self.steps_count = 0
+        self.sim_start = 0
         delta_time=0
 
         # window creation and pygame initialisation
         pygame.init()
-        self.screen = pygame.display.set_mode(self.window_size)
+        pygame.font.init()
+        self.main_font = pygame.font.SysFont("comicsans", 50)
+        self.surface = pygame.display.set_mode(self.window_size)
         pygame.display.set_caption("{0}".format(self.name))
 
-        # retriving unique data from layers
-        # path = ""
-        # for l in self.layers:
-        #     if l.type == Type.MAP:
-        #         path = l.components[0].file_name
-
-        # self.background = pygame.image.load(os.path.join(os.pardir, "assets", path))
-
-        print("Running {0} simulation ...".format(self.name))
         start = 0
+        self.sim_start = perf_counter()
+        print("Running {0} simulation ...".format(self.name))
         while sim_time>start and self.is_running:
-            start = perf_counter()
+            start = perf_counter() - self.sim_start
 
             #handling pygame events
             for event in pygame.event.get():
@@ -53,11 +49,15 @@ class Simulation:
                 l.on_update(self.steps_count)
 
             #displaying logic
+            step_label = self.main_font.render("Step: {0}".format(self.steps_count), 1, (255, 255, 255))
+            
             for l in self.layers:
-                l.on_display(self.screen)  
+                l.on_display(self.surface)  
+            self.surface.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
+
             pygame.display.update()
 
-            stop = perf_counter()
+            stop = perf_counter() - self.sim_start
             delta_time = stop-start
             if delta_time < step_time:
                 time.sleep(step_time-delta_time)
@@ -66,6 +66,8 @@ class Simulation:
 
 
         print("Simulation {0} ended after {1} seconds ({2} steps)".format(self.name, start, self.steps_count ))
+        time.sleep(1)
+        pygame.quit()
 
     def add_scenario(self, scenario):
         self.scenarios[scenario.name] = scenario
