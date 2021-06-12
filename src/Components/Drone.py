@@ -23,7 +23,7 @@ class Drone:
         surface.blit(self.texture, (self.position[0]-self.width/2, self.position[1] - self.depth/2, self.width, self.depth))
 
     def on_collision(self, step):
-        pass
+        print("AŁA")
 
     def get_collider(self):
         return (self.position[0]-self.width/2, self.position[1] - self.depth/2, self.width, self.depth)

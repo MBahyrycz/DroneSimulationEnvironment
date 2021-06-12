@@ -1,4 +1,6 @@
 from App.Environment.CollisionDetector import CollisionDetector
+from App.Environment.ObjectManager import *
+
 from time import perf_counter
 import time
 import sys
@@ -14,6 +16,7 @@ class Simulation:
         self.scenarios = scenarios
         self.is_running = False
         self.colision_detector = CollisionDetector()
+        self.object_manager = ObjectManager()
 
         self.window_size = self.window_width, self.window_height = 800, 800
         print("Simulation {0} has been created!".format(self.name))     
@@ -26,6 +29,7 @@ class Simulation:
         self.sim_start = 0
         delta_time=0
         self.colision_detector.colliders.clear()
+        self.object_manager.get_from_layers(self.layers)
 
         # window creation and pygame initialisation
         pygame.init()
@@ -48,6 +52,9 @@ class Simulation:
 
             # collision detection
             self.colision_detector.detect()
+            for d in self.colision_detector.detections:
+                # self.object_manager.get_component_by_id(d[0]).on_collision(self.steps_count)
+                self.object_manager.get_object_by_id(d[0].id).on_collision(self.steps_count)
 
             if self.scenarios and scenario_name:
                 self.scenarios[scenario_name].execute(self.steps_count, self.layers)
@@ -83,8 +90,14 @@ class Simulation:
     def add_scenario(self, scenario):
         self.scenarios[scenario.name] = scenario
 
+    def create_scenario(self):
+        pass
+
     def add_layer(self, layer):
         self.layers.append(layer)
+
+    def create_layer(self, type):
+        self.layers.append(Layer(type, []))
 
     def shutdown(self):
         self.layers.clear()

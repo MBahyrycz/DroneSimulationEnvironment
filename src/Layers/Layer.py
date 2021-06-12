@@ -10,11 +10,8 @@ class Type(Enum):
     WEATHER = 4
 
 class Layer:
-    def __init__(self, type, components, width=50, height=50, depth=50): # 
+    def __init__(self, type, components): # 
         self.type = type
-        self.width = width
-        self.height = height
-        self.depth = depth
         self.components = components
         self.is_visible = True
         self.is_computed = True
@@ -31,4 +28,6 @@ class Layer:
 
     def add_component(self, component):
         self.components.append(component)
-    
+
+    def create_component(self, properties, id):
+        pass

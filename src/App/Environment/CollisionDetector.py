@@ -1,5 +1,3 @@
-# think how to handle that
-
 import pygame 
 
 class Collider():
@@ -39,7 +37,8 @@ class CollisionDetector():
     def get_from_layers(self, layers):
         self.colliders.clear()
         for l in layers:
-            for c in l.components:
-                if c.is_collidable:
-                    collider = Collider(c.get_collider(), c.id)
-                    self.colliders.append(collider)
+            if l.is_computed:
+                for c in l.components:
+                    if c.is_collidable:
+                        collider = Collider(c.get_collider(), c.id)
+                        self.colliders.append(collider)

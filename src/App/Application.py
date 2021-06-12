@@ -48,7 +48,7 @@ class Application:
         self.drone_layer.add_component(drone4)
 
         station1 = DockingStation(np.array([240, 60, 10]), 4)
-        station2 = DockingStation(np.array([130, 200, 10]), 5)
+        station2 = DockingStation(np.array([130, 140, 10]), 5)
         self.station_layer = Layer(Type.STATION, [station1, station2])
 
         map = Map(1000, 1000, "Libertow")
