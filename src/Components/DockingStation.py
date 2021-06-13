@@ -1,8 +1,22 @@
 import pygame
 
+'''
+properties template
+
+props {
+    'width' : width
+    'height' : height
+    'depth' : depth
+    'charge power' : charge_power
+    'docking places' : docking_places
+}
+
+'''
+
 class DockingStation:
     def __init__(self, position, id):
         self.position = position
+        # self.properties = properties
         self.id = id
         self.width = 50
         self.height = 200
