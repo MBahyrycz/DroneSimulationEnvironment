@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QMessageBox
 
 from Components.Drone import *
+from Components.DroneLib import *
 from Components.DockingStation import *
 from Components.Weather import *
 from Components.Map import *
@@ -40,10 +41,11 @@ class Application:
     def reset_simulation(self):
         self.step_time = 1 / 1
 
-        drone1 = Drone(np.array([130, 60, 0]), 10, 0, file_path="drone0.png")
-        drone2 = Drone(np.array([150, 400, 0]), 15, 1, file_path="drone1.png")
-        drone3 = Drone(np.array([500, 300, 0]), 5, 2, file_path="drone2.png")
-        drone4 = Drone(np.array([650, 500, 0]), 25, 3, file_path="drone0.png")
+        dronelib = DroneLib()
+        drone1 = Drone(np.array([130, 60, 0]), dronelib.get_props('default'), 0)
+        drone2 = Drone(np.array([150, 400, 0]), dronelib.get_props('scout1'), 1)
+        drone3 = Drone(np.array([500, 300, 0]), dronelib.get_props('carrier2'), 2)
+        drone4 = Drone(np.array([650, 500, 0]), dronelib.get_props('micxed3'), 3)
         self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3])
         self.drone_layer.add_component(drone4)
 
