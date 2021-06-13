@@ -3,7 +3,6 @@ class ObjectManager():
         self.register = {}
         self.unused_ids = [ x for x in range(1,100)]
         self.used_ids = []
-        print(self.unused_ids[0:5])
 
     def get_from_layers(self, layers):
         self.register.clear()
