@@ -49,7 +49,6 @@ class Application:
 
         self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3])
         self.drone_layer.add_component(drone4)
-        print(self.drone_layer)
 
         props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': 1, 'docking_places': 2}
 
