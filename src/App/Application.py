@@ -82,7 +82,7 @@ class Application:
 
     def on_run_button_clicked(self):
         self.reset_simulation()
-        self.simulation.run(self.step_time, 10)
+        self.simulation.run(self.step_time, 10, "Rain")
         self.sum_up_simulation()
         self.simulation.shutdown()
 

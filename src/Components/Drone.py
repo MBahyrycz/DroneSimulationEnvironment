@@ -25,7 +25,7 @@ class Drone:
         self.props = props
         self.id = id
         self.is_collidable = True
-        self.destination = np.array([500, 500, 0])
+        self.destination = np.array([0, 200, 0])
         self.texture = pygame.transform.scale(pygame.image.load(os.path.join(os.pardir, "assets", self.props['file_path'])), (self.props['width'], self.props['depth']))
         self.mask = pygame.mask.from_surface(self.texture)
 
@@ -48,7 +48,9 @@ class Drone:
         move = self.go_to()
         # self.position += np.array([0, 1, 0]) * self.props['velocity']
         self.position += move
-        print("Drone {0} at position: {1}, {2}, {3}".format(self.id, self.position[0], self.position[1], self.position[2]))
+        print("Drone {0} at position: {1}, {2}, {3} going to destination {4}, {5}, {6}".format(
+            self.id, self.position[0], self.position[1], self.position[2], self.destination[0], self.destination[1], self.destination[2]
+            ))
 
     def on_display(self, surface):
         surface.blit(self.texture, (self.position[0]-self.props['width']/2, self.position[1] - self.props['depth']/2, self.props['width'], self.props['depth']))

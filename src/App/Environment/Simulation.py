@@ -90,6 +90,7 @@ class Simulation:
 
     def add_scenario(self, scenario):
         self.scenarios[scenario.name] = scenario
+        print(self.scenarios)
 
     def create_scenario(self):
         pass

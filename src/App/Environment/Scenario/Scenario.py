@@ -15,4 +15,5 @@ class Scenario:
                 for c in l.components:
                     c.set_destination(np.array([500, 500, 0]))
 
+
             
