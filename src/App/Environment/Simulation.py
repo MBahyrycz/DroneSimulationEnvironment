@@ -35,7 +35,8 @@ class Simulation:
         pygame.init()
         pygame.font.init()
         self.main_font = pygame.font.SysFont("comicsans", 50)
-        self.surface = pygame.display.set_mode(self.window_size)
+        self.window = pygame.display.set_mode(self.window_size)
+        self.surface = pygame.Surface(self.window_size, pygame.SRCALPHA, 32)
         pygame.display.set_caption("{0}".format(self.name))
 
         self.start = 0
@@ -69,11 +70,11 @@ class Simulation:
             #displaying logic
             step_label = self.main_font.render("Step: {0}".format(self.steps_count), 1, (255, 255, 255))
             
+            self.window.blit(self.surface, (0, 0))
             for l in self.layers:
                 l.on_display(self.surface)  
             self.colision_detector.draw_boxes(self.surface)
-            self.surface.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
-
+            self.window.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
             pygame.display.update()
 
             stop = perf_counter() - self.sim_start
