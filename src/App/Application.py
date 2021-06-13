@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QMessageBox
 
 from Components.Drone import *
-from Components.DroneLib import *
+from App.Environment.DroneLib import *
 from Components.DockingStation import *
 from Components.Weather import *
 from Components.Map import *
@@ -30,6 +30,7 @@ class Application:
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.window)
         self.ui.play.clicked.connect(self.on_run_button_clicked)
+        self.dronelib = DroneLib()
 
         self.run()
 
@@ -41,16 +42,19 @@ class Application:
     def reset_simulation(self):
         self.step_time = 1 / 1
 
-        dronelib = DroneLib()
-        drone1 = Drone(np.array([130, 60, 0]), dronelib.get_props('default'), 0)
-        drone2 = Drone(np.array([150, 400, 0]), dronelib.get_props('scout1'), 1)
-        drone3 = Drone(np.array([500, 300, 0]), dronelib.get_props('carrier2'), 2)
-        drone4 = Drone(np.array([650, 500, 0]), dronelib.get_props('micxed3'), 3)
+        drone1 = Drone(np.array([130, 60, 0]), self.dronelib.get_props('default'), 0)
+        drone2 = Drone(np.array([150, 400, 0]), self.dronelib.get_props('scout1'), 1)
+        drone3 = Drone(np.array([500, 300, 0]), self.dronelib.get_props('carrier2'), 2)
+        drone4 = Drone(np.array([650, 500, 0]), self.dronelib.get_props('mixed3'), 3)
+
         self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3])
         self.drone_layer.add_component(drone4)
+        print(self.drone_layer)
 
-        station1 = DockingStation(np.array([240, 60, 10]), 4)
-        station2 = DockingStation(np.array([130, 140, 10]), 5)
+        props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': 1, 'docking_places': 2}
+
+        station1 = DockingStation(np.array([240, 60, 10]), props, 4)
+        station2 = DockingStation(np.array([130, 140, 10]), props, 5)
         self.station_layer = Layer(Type.STATION, [station1, station2])
 
         map = Map(1000, 1000, "Libertow")

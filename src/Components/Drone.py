@@ -28,6 +28,7 @@ class Drone:
         self.texture = pygame.transform.scale(pygame.image.load(os.path.join(os.pardir, "assets", self.props['file_path'])), (self.props['width'], self.props['depth']))
         self.mask = pygame.mask.from_surface(self.texture)
 
+    # not working
     def go_to(self, destination):
         x_vec = destination[0] - self.position[0]
         y_vec = destination[1] - self.position[1]
@@ -43,8 +44,8 @@ class Drone:
     def on_update(self, step):
         destination = np.array([500, 500, 0])
         move = self.go_to(destination)
-        #self.position += np.array([0, 1, 0]) * self.props['velocity']
-        self.position += move
+        self.position += np.array([0, 1, 0]) * self.props['velocity']
+        #self.position += move
         print("Drone {0} at position: {1}, {2}, {3}".format(self.id, self.position[0], self.position[1], self.position[2]))
 
     def on_display(self, surface):

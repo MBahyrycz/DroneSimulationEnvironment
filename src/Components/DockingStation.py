@@ -7,8 +7,8 @@ props {
     'width' : width
     'height' : height
     'depth' : depth
-    'charge power' : charge_power (charging rate?)
-    'docking places' : docking_places
+    'charge_power' : charge_power (charging rate?)
+    'docking_places' : docking_places
 }
 
 '''
