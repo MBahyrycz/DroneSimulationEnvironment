@@ -17,7 +17,7 @@ from Layers.Layer import *
 
 
 from App.Environment.Environment import *
-from App.Environment.Scenario import *
+from App.Environment.Scenario.Scenario import *
 
 from App.GUI.main_window import *
 
@@ -50,16 +50,18 @@ class Application:
         self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3])
         self.drone_layer.add_component(drone4)
 
-        props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': 1, 'docking_places': 2}
+        station_props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': 1, 'docking_places': 2}
 
-        station1 = DockingStation(np.array([240, 60, 10]), props, 4)
-        station2 = DockingStation(np.array([130, 140, 10]), props, 5)
+        station1 = DockingStation(np.array([240, 60, 10]), station_props, 4)
+        station2 = DockingStation(np.array([130, 140, 10]), station_props, 5)
         self.station_layer = Layer(Type.STATION, [station1, station2])
 
-        map = Map(1000, 1000, "Libertow")
+        map_props = {'width' : 1000, 'height' : 1000, 'name' : "Libertów", 'file_path': "terrain.png"}
+
+        map = Map(map_props, 6)
         self.map_layer = Layer(Type.MAP, [map])
 
-        weather = Weather(Conditions.SUNNY)
+        weather = Weather(Conditions.SUNNY, 7)
         self.weather_layer = Layer(Type.WEATHER, [weather])
 
         self.weather_scenario = Scenario("Rain")

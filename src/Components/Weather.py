@@ -7,13 +7,16 @@ class Conditions(Enum):
 
 
 class Weather:
-    def __init__(self, conditions):
+    def __init__(self, conditions, id):
         self.conditions = conditions
+        self.id = id
         self.is_collidable = False
 
     def on_update(self, step):
-        # if self.conditions.name == "SUNNY":
         print(self.conditions.name)
 
     def on_display(self, surface):
         pass
+
+    def on_change(self, step, conditions):
+        self.conditions = conditions

@@ -25,27 +25,29 @@ class Drone:
         self.props = props
         self.id = id
         self.is_collidable = True
+        self.destination = np.array([500, 500, 0])
         self.texture = pygame.transform.scale(pygame.image.load(os.path.join(os.pardir, "assets", self.props['file_path'])), (self.props['width'], self.props['depth']))
         self.mask = pygame.mask.from_surface(self.texture)
 
     # not working
-    def go_to(self, destination):
-        x_vec = destination[0] - self.position[0]
-        y_vec = destination[1] - self.position[1]
-        z_vec = destination[2] - self.position[2]
+    def go_to(self):
+        x_vec = self.destination[0] - self.position[0]
+        y_vec = self.destination[1] - self.position[1]
+        z_vec = self.destination[2] - self.position[2]
 
         route_len = np.sqrt(x_vec**2 + y_vec**2 + z_vec**2)
-        step = np.array([(self.props['velocity'] * x_vec)/route_len,
-                         (self.props['velocity'] * y_vec)/route_len,
-                         (self.props['velocity'] * z_vec)/route_len])
+        step = np.array([round((self.props['velocity'] * x_vec)/route_len),
+                         round((self.props['velocity'] * y_vec)/route_len),
+                         round((self.props['velocity'] * z_vec)/route_len)])
         return step
 
+    def set_destination(self, destination):
+        self.destination = destination
 
     def on_update(self, step):
-        destination = np.array([500, 500, 0])
-        move = self.go_to(destination)
-        self.position += np.array([0, 1, 0]) * self.props['velocity']
-        #self.position += move
+        move = self.go_to()
+        # self.position += np.array([0, 1, 0]) * self.props['velocity']
+        self.position += move
         print("Drone {0} at position: {1}, {2}, {3}".format(self.id, self.position[0], self.position[1], self.position[2]))
 
     def on_display(self, surface):
