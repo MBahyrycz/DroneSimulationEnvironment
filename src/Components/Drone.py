@@ -25,7 +25,7 @@ class Drone:
         self.props = props
         self.id = id
         self.is_collidable = True
-        self.destination = np.array([0, 200, 0])
+        self.destination = np.array([500, 500, 0])
         self.texture = pygame.transform.scale(pygame.image.load(os.path.join(os.pardir, "assets", self.props['file_path'])), (self.props['width'], self.props['depth']))
         self.mask = pygame.mask.from_surface(self.texture)
 

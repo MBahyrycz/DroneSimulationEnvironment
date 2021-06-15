@@ -58,7 +58,7 @@ class Simulation:
                 self.object_manager.get_object_by_id(d[0].id).on_collision(self.steps_count)
 
             if self.scenarios and scenario_name:
-                self.scenarios[scenario_name].execute(self.steps_count, self.layers)
+                self.scenarios[scenario_name].execute(self.steps_count, self.layers, self.object_manager)
 
             # layers update
             for l in self.layers:

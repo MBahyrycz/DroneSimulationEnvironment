@@ -5,7 +5,6 @@ class Conditions(Enum):
     RAINY = 2
     CLOUDY = 3
 
-
 class Weather:
     def __init__(self, conditions, id):
         self.conditions = conditions
@@ -19,4 +18,7 @@ class Weather:
         pass
 
     def on_change(self, step, conditions):
+        pass
+
+    def set_conditions(self, conditions):
         self.conditions = conditions
