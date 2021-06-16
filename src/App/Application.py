@@ -17,7 +17,7 @@ from Layers.Layer import *
 
 
 from App.Environment.Environment import *
-from App.Environment.Scenario import *
+from App.Environment.Scenario.Scenario import *
 
 from App.GUI.main_window import *
 
@@ -40,7 +40,7 @@ class Application:
         sys.exit(self.app.exec_())
 
     def reset_simulation(self):
-        self.step_time = 1 / 1
+        self.step_time = 1 / 10
 
         drone1 = Drone(np.array([130, 60, 0]), self.dronelib.get_props('default'), 0)
         drone2 = Drone(np.array([150, 400, 0]), self.dronelib.get_props('scout1'), 1)
@@ -50,16 +50,18 @@ class Application:
         self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3])
         self.drone_layer.add_component(drone4)
 
-        props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': 1, 'docking_places': 2}
+        station_props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': 1, 'docking_places': 2}
 
-        station1 = DockingStation(np.array([240, 60, 10]), props, 4)
-        station2 = DockingStation(np.array([130, 140, 10]), props, 5)
+        station1 = DockingStation(np.array([240, 60, 10]), station_props, 4)
+        station2 = DockingStation(np.array([130, 140, 10]), station_props, 5)
         self.station_layer = Layer(Type.STATION, [station1, station2])
 
-        map = Map(1000, 1000, "Libertow")
+        map_props = {'width' : 1000, 'height' : 1000, 'name' : "Libertów", 'file_path': "terrain.png"}
+
+        map = Map(map_props, 6)
         self.map_layer = Layer(Type.MAP, [map])
 
-        weather = Weather(Conditions.SUNNY)
+        weather = Weather(Conditions.SUNNY, 7)
         self.weather_layer = Layer(Type.WEATHER, [weather])
 
         self.weather_scenario = Scenario("Rain")
@@ -80,7 +82,7 @@ class Application:
 
     def on_run_button_clicked(self):
         self.reset_simulation()
-        self.simulation.run(self.step_time, 10)
+        self.simulation.run(self.step_time, 4, "Rain")
         self.sum_up_simulation()
         self.simulation.shutdown()
 
