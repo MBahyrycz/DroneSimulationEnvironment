@@ -39,6 +39,9 @@ class Simulation:
         self.surface = pygame.Surface(self.window_size, pygame.SRCALPHA, 32)
         pygame.display.set_caption("{0}".format(self.name))
 
+        if self.scenarios and scenario_name:
+            self.scenarios[scenario_name].execute(self.object_manager)
+
         self.start = 0
         self.sim_start = perf_counter()
         print("Running {0} simulation ...".format(self.name))
@@ -56,9 +59,6 @@ class Simulation:
             for d in self.colision_detector.detections:
                 # self.object_manager.get_component_by_id(d[0]).on_collision(self.steps_count)
                 self.object_manager.get_object_by_id(d[0].id).on_collision(self.steps_count)
-
-            if self.scenarios and scenario_name:
-                self.scenarios[scenario_name].execute(self.steps_count, self.layers, self.object_manager)
 
             # layers update
             for l in self.layers:

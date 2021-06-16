@@ -40,7 +40,7 @@ class Application:
         sys.exit(self.app.exec_())
 
     def reset_simulation(self):
-        self.step_time = 1 / 1
+        self.step_time = 1 / 10
 
         drone1 = Drone(np.array([130, 60, 0]), self.dronelib.get_props('default'), 0)
         drone2 = Drone(np.array([150, 400, 0]), self.dronelib.get_props('scout1'), 1)
@@ -82,7 +82,7 @@ class Application:
 
     def on_run_button_clicked(self):
         self.reset_simulation()
-        self.simulation.run(self.step_time, 10, "Rain")
+        self.simulation.run(self.step_time, 4, "Rain")
         self.sum_up_simulation()
         self.simulation.shutdown()
 

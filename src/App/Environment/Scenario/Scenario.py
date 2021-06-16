@@ -1,24 +1,24 @@
 from Layers.Layer import *
 
 from Components.Weather import *
-
-from App.Environment.Scenario.Instructions import *
+from Components.Instructions import *
 
 class Scenario:
     def __init__(self, name):
         self.name = name
-        inst1 = MoveInstruction(InstructionType.MOVE, np.array([0,0,0]))
-        inst2 = MoveInstruction(InstructionType.MOVE, np.array([500,0,0]))
-        inst3 = MoveInstruction(InstructionType.WEATHER, Conditions.RAINY)
-        self.tasks = {0:[inst1], 1:[inst2], 7:[inst3]}
+        inst1 = MoveInstruction(np.array([4,2,0]), InstructionType.MOVE)
+        inst2 = MoveInstruction(np.array([500,0,0]), InstructionType.MOVE)
+        inst3 = WeatherChangeInstruction(Conditions.RAINY,InstructionType.WEATHER)
+        inst4 = WeatherChangeInstruction(Conditions.SUNNY,InstructionType.WEATHER)
+        inst5 = WeatherWaitAtInstruction(5, InstructionType.WEATHER)
+        inst6 = WeatherWaitAtInstruction(25, InstructionType.WEATHER)
+        inst7 = MoveWaitAtInstruction(30, InstructionType.MOVE)
+        self.tasks = {0:[inst1, inst7, inst2], 1:[inst2], 2:[inst1], 7:[inst5, inst3, inst6, inst4]}
 
-    def execute(self, step, layers, manager):
-
-        for t in self.tasks:
-            if self.tasks[t][0].type == InstructionType.MOVE:
-                manager.get_object_by_id(t).set_destination(self.tasks[t][0].execute())
-            if self.tasks[t][0].type == InstructionType.WEATHER and step == 7:
-                manager.get_object_by_id(t).set_conditions(self.tasks[t][0].execute())
+    def execute(self, manager):
+        for l in self.tasks:
+            manager.get_object_by_id(l).set_instructions(self.tasks[l])
+        
 
 
 
