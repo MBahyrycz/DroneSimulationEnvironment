@@ -40,15 +40,20 @@ class Drone:
         y_vec = self.destination[1] - self.position[1]
         z_vec = self.destination[2] - self.position[2]
 
-        if -2 < x_vec < 2 and -2 < y_vec < 2 and -2 < z_vec < 2:
-            print("Drone id: {0}, vec:".format(self.id), x_vec, y_vec, z_vec )
+        route_len = np.sqrt(x_vec ** 2 + y_vec ** 2 + z_vec ** 2)
+        if route_len is 0:
+            print("Drone id: {0}, vec:".format(self.id), x_vec, y_vec, z_vec)
             return np.array([0, 0, 0])
 
-        route_len = np.sqrt(x_vec**2 + y_vec**2 + z_vec**2)
-        step = np.array([round((self.props['velocity'] * x_vec)/route_len),
-                         round((self.props['velocity'] * y_vec)/route_len),
-                         round((self.props['velocity'] * z_vec)/route_len)])
-        return step
+        elif route_len < self.props['velocity']:
+            print("Drone id: {0}, vec:".format(self.id), x_vec, y_vec, z_vec)
+            return np.array([x_vec, y_vec, z_vec])
+
+        else:
+            step = np.array([round((self.props['velocity'] * x_vec)/route_len),
+                             round((self.props['velocity'] * y_vec)/route_len),
+                             round((self.props['velocity'] * z_vec)/route_len)])
+            return step
 
     def set_instructions(self, list):
         move_list = []
