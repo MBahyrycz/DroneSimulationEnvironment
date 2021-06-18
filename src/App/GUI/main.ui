@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>825</width>
+    <height>619</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -152,7 +152,7 @@
      <string>Computable</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_drone">
     <property name="geometry">
      <rect>
       <x>530</x>
@@ -165,7 +165,7 @@
      <string>Drone Layer</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="label_station">
     <property name="geometry">
      <rect>
       <x>530</x>
@@ -178,7 +178,7 @@
      <string>Station Layer</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="label_map">
     <property name="geometry">
      <rect>
       <x>530</x>
@@ -191,7 +191,7 @@
      <string>Map Layer</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="label_weather">
     <property name="geometry">
      <rect>
       <x>530</x>
@@ -258,7 +258,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Edit</string>
+     <string>EDIT</string>
     </property>
    </widget>
    <widget class="QLabel" name="prepare_simulation">
@@ -278,46 +278,6 @@
     <property name="text">
      <string>Prepare Simulation</string>
     </property>
-   </widget>
-   <widget class="QTreeWidget" name="treeWidget">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>80</y>
-      <width>241</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>Simulation</string>
-     </property>
-    </column>
-    <item>
-     <property name="text">
-      <string>Layers</string>
-     </property>
-     <item>
-      <property name="text">
-       <string>Drone Layer</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Station Layer</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Map Layer</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Weather Layer</string>
-      </property>
-     </item>
-    </item>
    </widget>
    <widget class="QLabel" name="simulation_window">
     <property name="geometry">
@@ -376,13 +336,65 @@
      <string>STOP</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="add_drone">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>70</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ADD DRONE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="add_station">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>120</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ADD STATION</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="add_map">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>170</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ADD MAP</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="add_weather">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>220</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ADD WEATHER</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>825</width>
      <height>21</height>
     </rect>
    </property>
