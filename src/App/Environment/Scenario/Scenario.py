@@ -6,7 +6,7 @@ from Components.Instructions import *
 class Scenario:
     def __init__(self, name):
         self.name = name
-        inst1 = MoveInstruction(np.array([4,2,0]), InstructionType.MOVE)
+        inst1 = MoveInstruction(np.array([0,0,0]), InstructionType.MOVE)
         inst2 = MoveInstruction(np.array([500,0,0]), InstructionType.MOVE)
         inst3 = WeatherChangeInstruction(Conditions.RAINY,InstructionType.WEATHER)
         inst4 = WeatherChangeInstruction(Conditions.SUNNY,InstructionType.WEATHER)
