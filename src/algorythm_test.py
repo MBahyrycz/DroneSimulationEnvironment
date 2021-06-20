@@ -13,7 +13,7 @@ drone_trace4 = [(400, 500), (450, 520), (500, 540), (550, 560), (600, 580), (650
 
 drone_trace = drone_trace1 + drone_trace2 + drone_trace3 + drone_trace4
 
-GeneticAlgorythm.init(5, drone_trace)
+GeneticAlgorythm.init(4, drone_trace)
 result = GeneticAlgorythm.solve()
 
 print("=============================================")
