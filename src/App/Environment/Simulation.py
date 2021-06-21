@@ -3,9 +3,7 @@ from App.Environment.ObjectManager import *
 
 from time import perf_counter
 import time
-import sys
 import pygame
-import os
 
 from Layers.Layer import *
 
@@ -21,7 +19,7 @@ class Simulation:
         self.window_size = self.window_width, self.window_height = 800, 800
         print("Simulation {0} has been created!".format(self.name))     
 
-    def run(self, step_time, sim_time, scenario_name="", show=True):
+    def run(self, step_time, sim_time, scenario_name="", show=True, log=False):
         # simulation variables initialisation
         self.is_running = True
         self.step_time = step_time
@@ -53,12 +51,11 @@ class Simulation:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: self.is_running = False
 
-            print("\n================STEP={0}===================".format(self.steps_count))
+            # print("\n================STEP={0}===================".format(self.steps_count))
 
             # collision detection
             self.colision_detector.detect()
             for d in self.colision_detector.detections:
-                # self.object_manager.get_component_by_id(d[0]).on_collision(self.steps_count)
                 self.object_manager.get_object_by_id(d[0].id).on_collision(self.steps_count)
 
             # layers update
@@ -76,7 +73,7 @@ class Simulation:
                 self.window.blit(self.surface, (0, 0))
                 for l in self.layers:
                     l.on_display(self.surface)  
-                self.colision_detector.draw_boxes(self.surface)
+                # self.colision_detector.draw_boxes(self.surface)
                 self.window.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
                 pygame.display.update()
 
@@ -87,13 +84,11 @@ class Simulation:
 
             self.steps_count += 1
 
-        # print("Simulation {0} ended after {1} seconds ({2} steps)".format(self.name, self.start, self.steps_count ))
         time.sleep(1)
         pygame.quit()
 
     def add_scenario(self, scenario):
         self.scenarios[scenario.name] = scenario
-        print(self.scenarios)
 
     def track_drones(self):
         traces = {}

@@ -42,7 +42,6 @@ class Drone:
         self.texture = pygame.transform.scale(pygame.image.load(os.path.join(os.pardir, "assets", self.props['file_path'])), (self.props['width'], self.props['depth']))
         self.mask = pygame.mask.from_surface(self.texture)
 
-    # not working
     def go_to(self):
         x_vec = self.destination[0] - self.position[0]
         y_vec = self.destination[1] - self.position[1]
@@ -50,11 +49,11 @@ class Drone:
 
         route_len = np.sqrt(x_vec ** 2 + y_vec ** 2 + z_vec ** 2)
         if route_len == 0:
-            print("Drone id: {0}, vec:".format(self.id), x_vec, y_vec, z_vec)
+            # print("Drone id: {0}, vec:".format(self.id), x_vec, y_vec, z_vec)
             return np.array([0, 0, 0])
 
         elif route_len < self.props['velocity']:
-            print("Drone id: {0}, vec:".format(self.id), x_vec, y_vec, z_vec)
+            # print("Drone id: {0}, vec:".format(self.id), x_vec, y_vec, z_vec)
             return np.array([x_vec, y_vec, z_vec])
 
         else:
@@ -77,10 +76,10 @@ class Drone:
         if self.on_discharge():
             move = self.go_to()
             self.position += move
-        print("Drone {0} at position: {1}, {2}, {3} going to destination {4}, {5}, {6} - remaining range {7}".format(
-            self.id, self.position[0], self.position[1], self.position[2], self.destination[0], self.destination[1], self.destination[2],
-            self.range
-            ))
+        # print("Drone {0} at position: {1}, {2}, {3} going to destination {4}, {5}, {6} - remaining range {7}".format(
+        #     self.id, self.position[0], self.position[1], self.position[2], self.destination[0], self.destination[1], self.destination[2],
+        #     self.range
+        #     ))
 
         self.trace.append((self.position[0], self.position[1]))
         ObjectManager.track(self)
@@ -90,14 +89,15 @@ class Drone:
         surface.blit(self.texture, (self.position[0]-self.props['width']/2, self.position[1] - self.props['depth']/2, self.props['width'], self.props['depth']))
 
     def on_collision(self, step):
-        print("AŁA")
+        # print("AŁA")
+        pass
 
     def on_discharge(self):
         if self.current_battery > 0:
             self.current_battery -= 1
             self.total_energy_cost += 1
         self.range = (self.current_battery / 1) * self.props['velocity']
-        print("Current battery: {0}".format(self.current_battery))
+        # print("Current battery: {0}".format(self.current_battery))
         return self.current_battery > 0
 
     def get_collider(self):

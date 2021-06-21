@@ -70,18 +70,19 @@ class Application:
     def reset_simulation(self, station_pos):
         self.step_time = 1 / 10
 
-        drone1 = Drone(np.array([130, 60, 0]), self.dronelib.get_props('default'), 0)
-        drone2 = Drone(np.array([150, 400, 0]), self.dronelib.get_props('scout1'), 1)
+        drone1 = Drone(np.array([180, 1200, 0]), self.dronelib.get_props('default'), 0)
+        drone2 = Drone(np.array([250, 400, 0]), self.dronelib.get_props('scout1'), 1)
         drone3 = Drone(np.array([500, 300, 0]), self.dronelib.get_props('carrier2'), 2)
         drone4 = Drone(np.array([650, 500, 0]), self.dronelib.get_props('mixed3'), 3)
 
         self.drone_layer = Layer(Type.DRONE, [drone1, drone2, drone3])
         self.drone_layer.add_component(drone4)
 
-        station_props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': 1, 'docking_places': 2}
+        station_props1 = {'width': 90, 'height': 200, 'depth': 90, 'charge_power': 1, 'docking_places': 2, 'file_path': "station1.png"}
+        station_props2 = {'width': 120, 'height': 200, 'depth': 120, 'charge_power': 1, 'docking_places': 5, 'file_path': "station2.png"}
 
-        station1 = DockingStation(np.array([station_pos[0][0], station_pos[0][1], 10]), station_props, 4)
-        station2 = DockingStation(np.array([station_pos[1][0], station_pos[1][1], 10]), station_props, 5)
+        station1 = DockingStation(np.array([station_pos[0][0], station_pos[0][1], 10]), station_props1, 4)
+        station2 = DockingStation(np.array([station_pos[1][0], station_pos[1][1], 10]), station_props2, 5)
         self.station_layer = Layer(Type.STATION, [station1, station2])
 
         map_props = {'width' : 1000, 'height' : 1000, 'name' : "Libertów", 'file_path': "terrain.png"}
@@ -110,7 +111,7 @@ class Application:
 
     def on_run_button_clicked(self):
         self.calculate()
-        self.simulation.run(self.step_time, 7, "Rain")
+        self.simulation.run(self.step_time, 10, "Rain")
         station_pos = self.environment.position_station(2)
         self.simulation.shutdown()
         self.reset_simulation(station_pos)

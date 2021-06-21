@@ -24,7 +24,8 @@ class Weather:
     def on_update(self, step):
         if hasattr(self.weather_queue.get_instruction(self.conditions, step), "conditions"):
             self.conditions = self.weather_queue.get_instruction(self.conditions, step).conditions
-        print(self.conditions.name)
+        # print(self.conditions.name)
+        pass
 
     def on_display(self, surface):
         pass

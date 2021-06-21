@@ -13,7 +13,7 @@ class Environment:
         return Simulation(name)
 
     def position_station(self, station_count):
-        print("CALCULATING... \n Do nothin for a while!")
+        print("Calculating position for {0} stations... \nDo nothin for a while!".format(station_count))
         trace = []
         unique_trace = []
         for t in ObjectManager.get_object_traces().items():
