@@ -4,6 +4,7 @@ import os
 import pygame
 
 from Components.Instructions import *
+from App.Environment.ObjectManager import *
 
 '''
 properties template
@@ -30,7 +31,9 @@ class Drone:
         self.is_collidable = True
         self.move_queue = MoveQueue()
         self.current_battery = self.props['battery']
-        self.range = (self.current_battery / 5) * self.props['velocity']
+        self.range = (self.current_battery / 1) * self.props['velocity']
+
+        self.trace = []
 
         # temp
         self.total_energy_cost = 0
@@ -78,6 +81,9 @@ class Drone:
             self.id, self.position[0], self.position[1], self.position[2], self.destination[0], self.destination[1], self.destination[2],
             self.range
             ))
+
+        self.trace.append((self.position[0], self.position[1]))
+        ObjectManager.track(self)
         
 
     def on_display(self, surface):
@@ -88,9 +94,9 @@ class Drone:
 
     def on_discharge(self):
         if self.current_battery > 0:
-            self.current_battery -= 5
-            self.total_energy_cost += 5
-        self.range = (self.current_battery / 5) * self.props['velocity']
+            self.current_battery -= 1
+            self.total_energy_cost += 1
+        self.range = (self.current_battery / 1) * self.props['velocity']
         print("Current battery: {0}".format(self.current_battery))
         return self.current_battery > 0
 

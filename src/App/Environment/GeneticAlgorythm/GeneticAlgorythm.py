@@ -28,7 +28,6 @@ class GeneticAlgorythm:
     def solve():
         end_condition = 0
         while end_condition < g_IterationCount:
-            # GeneticAlgorythm.print_alpha_male()
             GeneticAlgorythm.calculate_quality()
             GeneticAlgorythm.rank_selection()
             GeneticAlgorythm.cross_over()

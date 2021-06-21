@@ -16,8 +16,6 @@ drone_trace = drone_trace1 + drone_trace2 + drone_trace3 + drone_trace4
 GeneticAlgorythm.init(4, drone_trace)
 result = GeneticAlgorythm.solve()
 
-print("=============================================")
-
 trace1 = np.array([[i[0], i[1]] for i in drone_trace1])
 trace2 = np.array([[i[0], i[1]] for i in drone_trace2])
 trace3 = np.array([[i[0], i[1]] for i in drone_trace3])

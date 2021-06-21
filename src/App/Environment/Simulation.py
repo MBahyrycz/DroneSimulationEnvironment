@@ -32,12 +32,13 @@ class Simulation:
         self.object_manager.get_from_layers(self.layers)
 
         # window creation and pygame initialisation
-        pygame.init()
-        pygame.font.init()
-        self.main_font = pygame.font.SysFont("comicsans", 50)
-        self.window = pygame.display.set_mode(self.window_size)
-        self.surface = pygame.Surface(self.window_size, pygame.SRCALPHA, 32)
-        pygame.display.set_caption("{0}".format(self.name))
+        if show:
+            pygame.init()
+            pygame.font.init()
+            self.main_font = pygame.font.SysFont("comicsans", 50)
+            self.window = pygame.display.set_mode(self.window_size)
+            self.surface = pygame.Surface(self.window_size, pygame.SRCALPHA, 32)
+            pygame.display.set_caption("{0}".format(self.name))
 
         if self.scenarios and scenario_name:
             self.scenarios[scenario_name].execute(self.object_manager)
@@ -68,14 +69,16 @@ class Simulation:
             self.colision_detector.get_from_layers(self.layers)
 
             #displaying logic
-            step_label = self.main_font.render("Step: {0}".format(self.steps_count), 1, (255, 255, 255))
+
+            if show:
+                step_label = self.main_font.render("Step: {0}".format(self.steps_count), 1, (255, 255, 255))
             
-            self.window.blit(self.surface, (0, 0))
-            for l in self.layers:
-                l.on_display(self.surface)  
-            self.colision_detector.draw_boxes(self.surface)
-            self.window.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
-            pygame.display.update()
+                self.window.blit(self.surface, (0, 0))
+                for l in self.layers:
+                    l.on_display(self.surface)  
+                self.colision_detector.draw_boxes(self.surface)
+                self.window.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
+                pygame.display.update()
 
             stop = perf_counter() - self.sim_start
             delta_time = stop-self.start
@@ -91,6 +94,13 @@ class Simulation:
     def add_scenario(self, scenario):
         self.scenarios[scenario.name] = scenario
         print(self.scenarios)
+
+    def track_drones(self):
+        traces = {}
+        for l in self.layers:
+            if l.type == Type.DRONE:
+                for c in l.components:
+                    traces[c.id] = c.trace
 
     def create_scenario(self):
         pass
