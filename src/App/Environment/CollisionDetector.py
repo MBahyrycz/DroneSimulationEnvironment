@@ -17,7 +17,7 @@ class CollisionDetector():
                 if first is not second:
                     if self.collide(first.rect, second.rect):
                         self.detections.append((first, second))
-                        print("Object: {0} id collided with object: {1} id".format(first.id, second.id))
+                        # print("Object: {0} id collided with object: {1} id".format(first.id, second.id))
 
     def collide(self, rect1, rect2):
         if rect2[0] + rect2[2] > rect1[0] and rect2[0] < rect1[0] + rect1[2]:
