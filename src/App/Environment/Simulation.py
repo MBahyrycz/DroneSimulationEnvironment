@@ -76,7 +76,7 @@ class Simulation:
                 # self.colision_detector.draw_boxes(self.surface)
                 self.window.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
                 pygame.display.update()
-
+                
             stop = perf_counter() - self.sim_start
             delta_time = stop-self.start
             if delta_time < step_time:
