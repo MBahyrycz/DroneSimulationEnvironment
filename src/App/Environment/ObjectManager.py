@@ -1,8 +1,9 @@
 class ObjectManager():
     def __init__(self):
         self.register = {}
-        self.unused_ids = [ x for x in range(1,100)]
+        self.highest_id = 0
         self.used_ids = []
+        self.returned_ids = []
         global g_ObjectTraces
         g_ObjectTraces = {}
         for i in range(4):
@@ -20,6 +21,21 @@ class ObjectManager():
     def get_object_traces():
         return g_ObjectTraces
 
+    def get_id(self):
+        if self.returned_ids:
+            self.returned_ids.sort()
+            _id = self.returned_ids.pop(0)
+        else:
+            self.highest_id += 1
+            _id = self.highest_id
+        return _id
+
+    def return_id(self, _id):
+        _id_index = self.used_ids.index(_id)
+        self.used_ids.pop(_id_index)
+        self.returned_ids.append(_id)
+
+
     def get_from_layers(self, layers):
         self.register.clear()
         for l in layers:
@@ -30,9 +46,3 @@ class ObjectManager():
 
     def get_object_by_id(self, id):
         return self.register[id]
-
-    def generate_id(self):
-        id = self.ids[0]
-        self.unused_ids.remove(id)
-        self.used_ids.append(id)
-        return id

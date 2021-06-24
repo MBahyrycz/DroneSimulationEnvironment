@@ -35,6 +35,7 @@ class Application:
 
         self.step_time = 1/10
         self.dronelib = DroneLib()
+        self.objectmanager = ObjectManager()
         self.drone_layer = Layer(Type.DRONE, [])
         self.station_layer = Layer(Type.STATION, [])
         self.map_layer = Layer(Type.MAP, [])
