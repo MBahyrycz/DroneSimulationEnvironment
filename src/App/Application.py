@@ -65,6 +65,10 @@ class Application:
 
     def reset_simulation(self):
         weather = Weather(Conditions.SUNNY)
+        #map_props = {'width': 1000, 'height': 1000, 'name': "Libertów", 'file_path': "terrain.png"}
+        #map = Map(map_props, 0)
+        map = Map(1000, 1000, "Libertow")
+        self.map_layer = Layer(Type.MAP, [map])
         self.weather_layer = Layer(Type.WEATHER, [weather])
         self.weather_scenario = Scenario("Rain")
         self.simulation.add_layer(self.map_layer)
@@ -116,10 +120,10 @@ class Application:
         self.ui.y_pos.setValue(0)
         self.ui.z_pos.setValue(0)
 
-    def create_map(self):
-        if self.ui.checkBox.isChecked():
-            terrain = Map(1000, 1000, "Libertow")
-            self.map_layer.add_component(terrain)
+    # def create_map(self):
+    #     if self.ui.checkBox.isChecked():
+    #         terrain = Map(1000, 1000, "Libertow")
+    #         self.map_layer.add_component(terrain)
         # else:
         #     msg = QMessageBox()
         #     msg.setWindowTitle("Simulation info")

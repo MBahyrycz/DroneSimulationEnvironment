@@ -71,8 +71,10 @@ class Simulation:
             step_label = self.main_font.render("Step: {0}".format(self.steps_count), 1, (255, 255, 255))
             
             self.window.blit(self.surface, (0, 0))
+
             for l in self.layers:
-                l.on_display(self.surface)  
+                l.on_display(self.surface)
+
             self.colision_detector.draw_boxes(self.surface)
             self.window.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
             pygame.display.update()
