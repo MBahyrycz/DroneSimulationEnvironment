@@ -28,6 +28,7 @@ class Simulation:
         delta_time=0
         self.colision_detector.colliders.clear()
         self.object_manager.get_from_layers(self.layers)
+        print(self.object_manager.register)
 
         # window creation and pygame initialisation
         if show:

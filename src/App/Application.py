@@ -39,7 +39,7 @@ class Application:
         self.station_layer = Layer(Type.STATION, [])
         self.map_layer = Layer(Type.MAP, [])
         self.weather_layer = Layer(Type.WEATHER, [])
-        self.simulation = self.environment.create_simulation('symulacja')
+        
 
         self.ui.play.clicked.connect(self.on_run_button_clicked)
         self.ui.add_drone.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.add_drone_widget))
@@ -64,43 +64,45 @@ class Application:
 
         sys.exit(self.app.exec_())
 
-    def calculate(self):      
+    def calculate(self):     
+        self.simulation = self.environment.create_simulation('symulacja') 
         map_props = {'width' : 1000, 'height' : 1000, 'name' : "Libertów", 'file_path': "terrain.png"}
 
-        map = Map(map_props, 6)
+        map = Map(map_props, 4)
         self.map_layer = Layer(Type.MAP, [map])
 
-        weather = Weather(Conditions.SUNNY, 4)
+        weather = Weather(Conditions.SUNNY, 1)
         self.weather_layer = Layer(Type.WEATHER, [weather])
 
         self.weather_scenario = Scenario("Rain")
 
-        self.simulation = self.environment.create_simulation('symulacja')
         self.simulation.add_layer(self.map_layer)
-        # self.simulation.add_layer(self.drone_layer)
+        self.simulation.add_layer(self.drone_layer)
         self.simulation.add_layer(self.weather_layer)
         self.simulation.add_scenario(self.weather_scenario)
 
     def reset_simulation(self, station_pos):
+        self.simulation = self.environment.create_simulation('symulacja')
+        
         station_props1 = {'width': 90, 'height': 200, 'depth': 90, 'charge_power': 1, 'docking_places': 2, 'file_path': "station1.png"}
         station_props2 = {'width': 120, 'height': 200, 'depth': 120, 'charge_power': 1, 'docking_places': 5, 'file_path': "station2.png"}
 
-        station1 = DockingStation(np.array([station_pos[0][0], station_pos[0][1], 10]), station_props1, 1)
-        station2 = DockingStation(np.array([station_pos[1][0], station_pos[1][1], 10]), station_props2, 2)
+        station1 = DockingStation(np.array([station_pos[0][0], station_pos[0][1], 10]), station_props1, 2)
+        station2 = DockingStation(np.array([station_pos[1][0], station_pos[1][1], 10]), station_props2, 3)
         self.station_layer = Layer(Type.STATION, [station1, station2])
 
         map_props = {'width' : 1000, 'height' : 1000, 'name' : "Libertów", 'file_path': "terrain.png"}
 
-        map = Map(map_props, 6)
+        map = Map(map_props, 4)
         self.map_layer = Layer(Type.MAP, [map])
 
-        weather = Weather(Conditions.SUNNY, 3)
+        weather = Weather(Conditions.SUNNY, 1)
         
         self.weather_layer = Layer(Type.WEATHER, [weather])
         self.weather_scenario = Scenario("Rain")
         self.simulation.add_layer(self.map_layer)
         self.simulation.add_layer(self.station_layer)
-        # self.simulation.add_layer(self.drone_layer)
+        self.simulation.add_layer(self.drone_layer)
         self.simulation.add_layer(self.weather_layer)
         self.simulation.add_scenario(self.weather_scenario)
 

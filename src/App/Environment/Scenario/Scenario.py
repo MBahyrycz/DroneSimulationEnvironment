@@ -16,10 +16,12 @@ class Scenario:
         inst8 = MoveInstruction(np.array([750,750,0]), InstructionType.MOVE)
         inst9 = MoveInstruction(np.array([200,600,0]), InstructionType.MOVE)
         inst10 = MoveWaitAtInstruction(55, InstructionType.MOVE)
-        self.tasks = {0:[inst1, inst7, inst2], 1:[inst2, inst10, inst9], 2:[inst1, inst9], 3:[inst8, inst10, inst9], 7:[inst5, inst3, inst6, inst4]}
+        # self.tasks = {0:[inst1, inst7, inst2], 1:[inst2, inst10, inst9], 2:[inst1, inst9], 3:[inst8, inst10, inst9], 7:[inst5, inst3, inst6, inst4]}
+        self.tasks = {0:[inst1, inst7, inst2], 1:[inst5, inst3, inst6, inst4]}
 
     def execute(self, manager):
         for l in self.tasks:
+            print(l)
             manager.get_object_by_id(l).set_instructions(self.tasks[l])
         
 
