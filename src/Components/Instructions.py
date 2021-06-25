@@ -1,10 +1,12 @@
 from enum import Enum
 import queue
 
+
 class InstructionType(Enum):
     MOVE = 1
     ACTION = 2
     WEATHER = 3
+
 
 class MoveQueue:
     def __init__(self):
@@ -29,6 +31,7 @@ class MoveQueue:
 
         return self.bufor[0]
 
+
 class MoveInstruction():
     def __init__(self, position, type):
         self.position = position
@@ -37,6 +40,7 @@ class MoveInstruction():
     def ready(self, position, step):
         return self.position[0] == position[0] and self.position[1] == position[1] and self.position[2] == position[2]
 
+
 class MoveWaitAtInstruction():
     def __init__(self, step, type):
         self.step = step
@@ -44,6 +48,7 @@ class MoveWaitAtInstruction():
 
     def ready(self, position, step):
         return self.step == step
+
 
 class WeatherQueue:
     def __init__(self):
@@ -68,6 +73,7 @@ class WeatherQueue:
 
         return self.bufor[0]
 
+
 class WeatherChangeInstruction():
     def __init__(self, conditions, type):
         self.conditions = conditions
@@ -76,6 +82,7 @@ class WeatherChangeInstruction():
     def ready(self, conditions, step):
         return self.conditions == conditions
 
+
 class WeatherWaitAtInstruction():
     def __init__(self, step, type):
         self.step = step
@@ -83,4 +90,3 @@ class WeatherWaitAtInstruction():
 
     def ready(self, conditions, step):
         return self.step == step
-

@@ -1,9 +1,11 @@
-import pygame 
+import pygame
+
 
 class Collider():
     def __init__(self, rect, id):
         self.rect = rect
         self.id = id
+
 
 class CollisionDetector():
     def __init__(self):
@@ -21,7 +23,7 @@ class CollisionDetector():
 
     def collide(self, rect1, rect2):
         if rect2[0] + rect2[2] > rect1[0] and rect2[0] < rect1[0] + rect1[2]:
-            if rect2[1] + rect2[3] > rect1[1] and  rect2[1] < rect1[1] + rect1[3]:
+            if rect2[1] + rect2[3] > rect1[1] and rect2[1] < rect1[1] + rect1[3]:
                 return True
 
         return False

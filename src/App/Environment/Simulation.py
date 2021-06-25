@@ -7,6 +7,7 @@ import pygame
 
 from Layers.Layer import *
 
+
 class Simulation:
     def __init__(self, name, layers=[], scenarios={}):
         self.name = name
@@ -17,7 +18,7 @@ class Simulation:
         self.object_manager = ObjectManager()
 
         self.window_size = self.window_width, self.window_height = 800, 800
-        print("Simulation {0} has been created!".format(self.name))     
+        print("Simulation {0} has been created!".format(self.name))
 
     def run(self, step_time, sim_time, scenario_name="", show=True, log=False):
         # simulation variables initialisation
@@ -25,7 +26,7 @@ class Simulation:
         self.step_time = step_time
         self.steps_count = 0
         self.sim_start = 0
-        delta_time=0
+        delta_time = 0
         self.colision_detector.colliders.clear()
         self.object_manager.get_from_layers(self.layers)
         print(self.object_manager.register)
@@ -45,10 +46,10 @@ class Simulation:
         self.start = 0
         self.sim_start = perf_counter()
         print("Running {0} simulation ...".format(self.name))
-        while sim_time>self.start and self.is_running:
+        while sim_time > self.start and self.is_running:
             self.start = perf_counter() - self.sim_start
 
-            #handling pygame events
+            # handling pygame events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: self.is_running = False
 
@@ -66,22 +67,22 @@ class Simulation:
             # collision detector update 
             self.colision_detector.get_from_layers(self.layers)
 
-            #displaying logic
+            # displaying logic
 
             if show:
                 step_label = self.main_font.render("Step: {0}".format(self.steps_count), 1, (255, 255, 255))
-            
+
                 self.window.blit(self.surface, (0, 0))
                 for l in self.layers:
-                    l.on_display(self.surface)  
-                # self.colision_detector.draw_boxes(self.surface)
+                    l.on_display(self.surface)
+                    # self.colision_detector.draw_boxes(self.surface)
                 self.window.blit(step_label, (self.window_width - step_label.get_width() - 20, 20))
                 pygame.display.update()
-                
+
             stop = perf_counter() - self.sim_start
-            delta_time = stop-self.start
+            delta_time = stop - self.start
             if delta_time < step_time:
-                time.sleep(step_time-delta_time)
+                time.sleep(step_time - delta_time)
 
             self.steps_count += 1
 
@@ -112,4 +113,4 @@ class Simulation:
         self.colision_detector.shutdown()
 
     def sum_up(self):
-        return "Simulation {0} ended after {1:.2f} seconds ({2} steps)".format(self.name, self.start, self.steps_count )
+        return "Simulation {0} ended after {1:.2f} seconds ({2} steps)".format(self.name, self.start, self.steps_count)

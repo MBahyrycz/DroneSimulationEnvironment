@@ -16,7 +16,6 @@ from Components.Map import *
 
 from Layers.Layer import *
 
-
 from App.Environment.Environment import *
 from App.Environment.Scenario.Scenario import *
 
@@ -33,9 +32,9 @@ class Application:
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.window)
 
-        self.step_time = 1/10
+        self.step_time = 1 / 10
         self.station_props = []
-        #self.num_station = 0
+        # self.num_station = 0
         self.dronelib = DroneLib()
         self.objectmanager = ObjectManager()
         self.drone_layer = Layer(Type.DRONE, [])
@@ -48,7 +47,8 @@ class Application:
         self.ui.add_station.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.add_station_widget))
         self.ui.add_weather.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.add_weather_widget))
         self.ui.add_map.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.add_map_widget))
-        self.ui.edit_scenario.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.edit_scenario_widget))
+        self.ui.edit_scenario.clicked.connect(
+            lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.edit_scenario_widget))
 
         self.ui.cancel.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))
         self.ui.cancel_2.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))
@@ -67,9 +67,9 @@ class Application:
 
         sys.exit(self.app.exec_())
 
-    def calculate(self):     
-        self.simulation = self.environment.create_simulation('symulacja') 
-        map_props = {'width' : 1000, 'height' : 1000, 'name' : "Libertów", 'file_path': "terrain.png"}
+    def calculate(self):
+        self.simulation = self.environment.create_simulation('symulacja')
+        map_props = {'width': 1000, 'height': 1000, 'name': "Libertów", 'file_path': "terrain.png"}
 
         map = Map(map_props, 4)
         self.map_layer = Layer(Type.MAP, [map])
@@ -91,15 +91,15 @@ class Application:
         print(self.station_props)
         for i in range(0, self.num_station):
             station = DockingStation(np.array([station_pos[i][0], station_pos[i][1], 10]),
-                                     self.station_props[i], i+2)
+                                     self.station_props[i], i + 2)
             self.station_layer.add_component(station)
-        map_props = {'width' : 1000, 'height' : 1000, 'name' : "Libertów", 'file_path': "terrain.png"}
+        map_props = {'width': 1000, 'height': 1000, 'name': "Libertów", 'file_path': "terrain.png"}
 
         map = Map(map_props, 4)
         self.map_layer = Layer(Type.MAP, [map])
 
         weather = Weather(Conditions.SUNNY, 1)
-        
+
         self.weather_layer = Layer(Type.WEATHER, [weather])
         self.weather_scenario = Scenario("Rain")
         self.simulation.add_layer(self.map_layer)
@@ -134,7 +134,7 @@ class Application:
         x = self.ui.x_pos.value()
         y = self.ui.y_pos.value()
         z = self.ui.z_pos.value()
-        #print(self.objectmanager.get_id())
+        # print(self.objectmanager.get_id())
         props = self.ui.drone_select_type.currentItem()
         drone = Drone(np.array([x, y, z]), self.dronelib.get_props(props.text().lower()), 0)
         self.drone_layer.add_component(drone)
@@ -154,5 +154,3 @@ class Application:
 
     def get_val_from_spinbox(self):
         return self.ui.number_of_stations.value()
-
-
