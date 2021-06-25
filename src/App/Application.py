@@ -35,7 +35,7 @@ class Application:
 
         self.step_time = 1/10
         self.station_props = []
-        self.num_station = 3 #self.ui.number_of_stations.value()
+        #self.num_station = 0
         self.dronelib = DroneLib()
         self.objectmanager = ObjectManager()
         self.drone_layer = Layer(Type.DRONE, [])
@@ -86,7 +86,8 @@ class Application:
 
     def reset_simulation(self, station_pos):
         self.simulation = self.environment.create_simulation('symulacja')
-        print(self.num_station)
+        self.num_station = self.get_val_from_spinbox()
+        print('How many stations?{0}'.format(self.num_station))
         print(self.station_props)
         for i in range(0, self.num_station):
             station = DockingStation(np.array([station_pos[i][0], station_pos[i][1], 10]),
@@ -121,6 +122,7 @@ class Application:
     def on_run_button_clicked(self):
         self.calculate()
         self.simulation.run(self.step_time, 10, "Rain")
+        self.num_station = self.get_val_from_spinbox()
         station_pos = self.environment.position_station(self.num_station)
         self.simulation.shutdown()
         self.reset_simulation(station_pos)
@@ -149,21 +151,8 @@ class Application:
                  'docking_places': int(places.text()), 'file_path': paths[random.randint(0, 1)]}
         self.station_props.append(props)
         self.ui.stackedWidget.setCurrentWidget(self.ui.page)
-        # station = DockingStation(np.array([x, y, z]), props, self.objectmanager.get_id())
-        # self.station_layer.add_component(station)
-        #
-        # self.ui.x_pos.setValue(0)
-        # self.ui.y_pos.setValue(0)
-        # self.ui.z_pos.setValue(0)
 
-    # def create_map(self):
-    #     if self.ui.checkBox.isChecked():
-    #         terrain = Map(1000, 1000, "Libertow")
-    #         self.map_layer.add_component(terrain)
-        # else:
-        #     msg = QMessageBox()
-        #     msg.setWindowTitle("Simulation info")
-        #     msg.setText("No map chosen")
-        #     msg.setIcon(QMessageBox.Information)
-        #     msg.exec_()
+    def get_val_from_spinbox(self):
+        return self.ui.number_of_stations.value()
+
 
