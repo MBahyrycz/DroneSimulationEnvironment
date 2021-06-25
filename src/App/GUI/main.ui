@@ -398,7 +398,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="add_drone_widget">
      <widget class="QLabel" name="label">
@@ -633,22 +633,6 @@
      </widget>
     </widget>
     <widget class="QWidget" name="add_station_widget">
-     <widget class="QSlider" name="y_pos_st">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>110</y>
-        <width>160</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="maximum">
-       <number>1000</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QPushButton" name="delete_station">
       <property name="geometry">
        <rect>
@@ -710,32 +694,6 @@
        <string>Select docking places:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_12">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>80</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>X:</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_13">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>140</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Z:</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="add_station_2">
       <property name="geometry">
        <rect>
@@ -749,22 +707,6 @@
        <string>Add</string>
       </property>
      </widget>
-     <widget class="QSlider" name="z_pos_st">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>140</y>
-        <width>160</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="maximum">
-       <number>1000</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
@@ -776,19 +718,6 @@
       </property>
       <property name="text">
        <string>Select power of charge:</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_10">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>110</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Y:</string>
       </property>
      </widget>
      <widget class="QPushButton" name="cancel_2">
@@ -839,40 +768,11 @@
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="label_11">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>60</y>
-        <width>141</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Insert start position:</string>
-      </property>
-     </widget>
-     <widget class="QSlider" name="x_pos_st">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>80</y>
-        <width>160</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="maximum">
-       <number>1000</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>10</y>
+        <x>120</x>
+        <y>110</y>
         <width>131</width>
         <height>31</height>
        </rect>
@@ -924,6 +824,44 @@
        <rect>
         <x>130</x>
         <y>170</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>BACK</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="station_num">
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>50</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Insert number of stations:</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="number_of_stations">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>120</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="go_back_4">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>160</y>
         <width>75</width>
         <height>23</height>
        </rect>

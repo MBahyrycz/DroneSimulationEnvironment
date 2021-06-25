@@ -1,4 +1,4 @@
-class ObjectManager():
+class ObjectManager:
     def __init__(self):
         self.register = {}
         self.highest_id = 0
@@ -34,7 +34,6 @@ class ObjectManager():
         _id_index = self.used_ids.index(_id)
         self.used_ids.pop(_id_index)
         self.returned_ids.append(_id)
-
 
     def get_from_layers(self, layers):
         self.register.clear()

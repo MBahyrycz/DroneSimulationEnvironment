@@ -34,13 +34,14 @@ class Application:
         self.ui.setupUi(self.window)
 
         self.step_time = 1/10
+        self.station_props = []
+        self.num_station = 3 #self.ui.number_of_stations.value()
         self.dronelib = DroneLib()
         self.objectmanager = ObjectManager()
         self.drone_layer = Layer(Type.DRONE, [])
         self.station_layer = Layer(Type.STATION, [])
         self.map_layer = Layer(Type.MAP, [])
         self.weather_layer = Layer(Type.WEATHER, [])
-        
 
         self.ui.play.clicked.connect(self.on_run_button_clicked)
         self.ui.add_drone.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.add_drone_widget))
@@ -54,6 +55,7 @@ class Application:
         self.ui.go_back.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))
         self.ui.go_back_2.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))
         self.ui.go_back_3.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))
+        self.ui.go_back_4.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))
 
         self.ui.add.clicked.connect(self.create_drone)
         self.ui.add_station_2.clicked.connect(self.create_station)
@@ -84,14 +86,12 @@ class Application:
 
     def reset_simulation(self, station_pos):
         self.simulation = self.environment.create_simulation('symulacja')
-        
-        station_props1 = {'width': 90, 'height': 200, 'depth': 90, 'charge_power': 1, 'docking_places': 2, 'file_path': "station1.png"}
-        station_props2 = {'width': 120, 'height': 200, 'depth': 120, 'charge_power': 1, 'docking_places': 5, 'file_path': "station2.png"}
-
-        station1 = DockingStation(np.array([station_pos[0][0], station_pos[0][1], 10]), station_props1, 2)
-        station2 = DockingStation(np.array([station_pos[1][0], station_pos[1][1], 10]), station_props2, 3)
-        self.station_layer = Layer(Type.STATION, [station1, station2])
-
+        print(self.num_station)
+        print(self.station_props)
+        for i in range(0, self.num_station):
+            station = DockingStation(np.array([station_pos[i][0], station_pos[i][1], 10]),
+                                     self.station_props[i], i+2)
+            self.station_layer.add_component(station)
         map_props = {'width' : 1000, 'height' : 1000, 'name' : "Libertów", 'file_path': "terrain.png"}
 
         map = Map(map_props, 4)
@@ -121,7 +121,7 @@ class Application:
     def on_run_button_clicked(self):
         self.calculate()
         self.simulation.run(self.step_time, 10, "Rain")
-        station_pos = self.environment.position_station(2)
+        station_pos = self.environment.position_station(self.num_station)
         self.simulation.shutdown()
         self.reset_simulation(station_pos)
         self.simulation.run(self.step_time, 10, "Rain")
@@ -132,6 +132,7 @@ class Application:
         x = self.ui.x_pos.value()
         y = self.ui.y_pos.value()
         z = self.ui.z_pos.value()
+        #print(self.objectmanager.get_id())
         props = self.ui.drone_select_type.currentItem()
         drone = Drone(np.array([x, y, z]), self.dronelib.get_props(props.text().lower()), 0)
         self.drone_layer.add_component(drone)
@@ -141,18 +142,19 @@ class Application:
         self.ui.z_pos.setValue(0)
 
     def create_station(self):
-        x = self.ui.x_pos_st.value()
-        y = self.ui.y_pos_st.value()
-        z = self.ui.z_pos_st.value()
         power = self.ui.charge_power.currentItem()
         places = self.ui.docking_places.currentItem()
-        props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': power.text(), 'docking_places': places.text()}
-        station = DockingStation(np.array([x, y, z]), props, 0)
-        self.station_layer.add_component(station)
+        paths = ["station1.png", "station2.png"]
+        props = {'width': 50, 'height': 200, 'depth': 50, 'charge_power': int(power.text()),
+                 'docking_places': int(places.text()), 'file_path': paths[random.randint(0, 1)]}
+        self.station_props.append(props)
         self.ui.stackedWidget.setCurrentWidget(self.ui.page)
-        self.ui.x_pos.setValue(0)
-        self.ui.y_pos.setValue(0)
-        self.ui.z_pos.setValue(0)
+        # station = DockingStation(np.array([x, y, z]), props, self.objectmanager.get_id())
+        # self.station_layer.add_component(station)
+        #
+        # self.ui.x_pos.setValue(0)
+        # self.ui.y_pos.setValue(0)
+        # self.ui.z_pos.setValue(0)
 
     # def create_map(self):
     #     if self.ui.checkBox.isChecked():
