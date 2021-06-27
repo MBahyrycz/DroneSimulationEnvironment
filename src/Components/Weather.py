@@ -2,10 +2,12 @@ from enum import Enum
 
 from Components.Instructions import *
 
+
 class Conditions(Enum):
     SUNNY = 1
     RAINY = 2
     CLOUDY = 3
+
 
 class Weather:
     def __init__(self, conditions, id):

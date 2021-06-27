@@ -3,16 +3,18 @@ from enum import Enum
 
 from App.Environment.GeneticAlgorythm.Individual import *
 
+
 class MutationType(Enum):
     RANDOM = 0
+
 
 class GeneticAlgorythm:
 
     @staticmethod
-    def init(station_count, drone_trace, population_count = 100, iteration_count = 1000):
-        global g_Population 
-        global g_PopulationCount 
-        global g_StationCount 
+    def init(station_count, drone_trace, population_count=100, iteration_count=1000):
+        global g_Population
+        global g_PopulationCount
+        global g_StationCount
         global g_DroneTrace
         global g_AlphaMale
         global g_IterationCount
@@ -52,10 +54,10 @@ class GeneticAlgorythm:
         sum = 0
         index = 0
         for j in range(len(g_DroneTrace)):
-            while index < g_StationCount-1:
-                index+=1
-            sum+=sqrt((individual.chromosome[index][0]-g_DroneTrace[j][0])**2 + 
-            (individual.chromosome[index][1]-g_DroneTrace[j][1])**2)
+            while index < g_StationCount - 1:
+                index += 1
+            sum += sqrt((individual.chromosome[index][0] - g_DroneTrace[j][0]) ** 2 +
+                        (individual.chromosome[index][1] - g_DroneTrace[j][1]) ** 2)
 
         return sum
 
@@ -72,11 +74,11 @@ class GeneticAlgorythm:
             g_AlphaMale.chromosome = g_Population[0].chromosome[:]
             g_AlphaMale.quality = g_Population[0].quality
 
-        for i in range(g_PopulationCount//2, g_PopulationCount):
+        for i in range(g_PopulationCount // 2, g_PopulationCount):
             g_Population[i] = Individual(g_StationCount)
 
     @staticmethod
-    def mutate(type = MutationType.RANDOM):
+    def mutate(type=MutationType.RANDOM):
         for i in g_Population:
             if type == MutationType.RANDOM:
                 i.mutate_random()
@@ -87,4 +89,5 @@ class GeneticAlgorythm:
     def cross_over():
         for i in range(0, g_PopulationCount, 2):
             crossover_index = random.randint(0, max((g_StationCount - 2), 0))
-            g_Population[i].chromosome[crossover_index:-1], g_Population[i+1].chromosome[crossover_index:-1] = g_Population[i+1].chromosome[crossover_index:-1], g_Population[i].chromosome[crossover_index:-1]
+            g_Population[i].chromosome[crossover_index:-1], g_Population[i + 1].chromosome[crossover_index:-1] = \
+            g_Population[i + 1].chromosome[crossover_index:-1], g_Population[i].chromosome[crossover_index:-1]

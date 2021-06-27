@@ -1,4 +1,5 @@
 import copy
+
 # from Components.Drone import *
 
 '''
@@ -44,7 +45,7 @@ class DroneLib:
     def __init__(self, props=copy.deepcopy(org_props)):
         self.props = props
 
-    def add_drone(self,  name: str, props: dict) -> None:
+    def add_drone(self, name: str, props: dict) -> None:
         self.props[name] = props
 
     def remove_drone(self, name: str) -> None:
@@ -58,7 +59,3 @@ class DroneLib:
     def get_drone(self, name):
         return Drone(self.store[name])
 '''
-
-
-
-

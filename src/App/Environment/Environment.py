@@ -1,9 +1,9 @@
-
 from enum import unique
 from numpy.core.fromnumeric import trace
 from App.Environment.Simulation import *
 from App.Environment.ObjectManager import *
 from App.Environment.GeneticAlgorythm.GeneticAlgorythm import *
+
 
 class Environment:
     def __init__(self, properties):

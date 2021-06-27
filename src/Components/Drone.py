@@ -37,9 +37,11 @@ class Drone:
 
         # temp
         self.total_energy_cost = 0
-        
+
         self.destination = np.array([500, 500, 0])
-        self.texture = pygame.transform.scale(pygame.image.load(os.path.join(os.pardir, "assets", self.props['file_path'])), (self.props['width'], self.props['depth']))
+        self.texture = pygame.transform.scale(
+            pygame.image.load(os.path.join(os.pardir, "assets", self.props['file_path'])),
+            (self.props['width'], self.props['depth']))
         self.mask = pygame.mask.from_surface(self.texture)
 
     def go_to(self):
@@ -57,9 +59,9 @@ class Drone:
             return np.array([x_vec, y_vec, z_vec])
 
         else:
-            step = np.array([round((self.props['velocity'] * x_vec)/route_len),
-                             round((self.props['velocity'] * y_vec)/route_len),
-                             round((self.props['velocity'] * z_vec)/route_len)])
+            step = np.array([round((self.props['velocity'] * x_vec) / route_len),
+                             round((self.props['velocity'] * y_vec) / route_len),
+                             round((self.props['velocity'] * z_vec) / route_len)])
             return step
 
     def set_instructions(self, list):
@@ -83,10 +85,11 @@ class Drone:
 
         self.trace.append((self.position[0], self.position[1]))
         ObjectManager.track(self)
-        
 
     def on_display(self, surface):
-        surface.blit(self.texture, (self.position[0]-self.props['width']/2, self.position[1] - self.props['depth']/2, self.props['width'], self.props['depth']))
+        surface.blit(self.texture, (
+        self.position[0] - self.props['width'] / 2, self.position[1] - self.props['depth'] / 2, self.props['width'],
+        self.props['depth']))
 
     def on_collision(self, step):
         # print("AŁA")
@@ -101,4 +104,5 @@ class Drone:
         return self.current_battery > 0
 
     def get_collider(self):
-        return self.position[0]-self.props['width']/2, self.position[1] - self.props['depth']/2, self.props['width'], self.props['depth']
+        return self.position[0] - self.props['width'] / 2, self.position[1] - self.props['depth'] / 2, self.props[
+            'width'], self.props['depth']
